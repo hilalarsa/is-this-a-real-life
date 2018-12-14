@@ -4,6 +4,7 @@
   "description": "",
   "main": "a.js",
   "dependencies": {
+    "nodemon": "^1.18.8",
     "readline-sync": "^1.4.9"
   },
   "devDependencies": {},

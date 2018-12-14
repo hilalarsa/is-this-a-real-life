@@ -1,10 +1,8 @@
 
 var readline = require('readline-sync');
 
-var name = readline.question("What is your name?");
+let length = readline.question("Enter number: ");
 
-console.log("Hi " + name + ", nice to meet you.");
-let length = 10
 if(checkEven(length)){
   let pool=createArray(length);
   console.log(pool);
@@ -13,7 +11,7 @@ if(checkEven(length)){
   let lastNumber = getLastNumber(pool)
   let userNumber = getUserNumber(firstNumber,lastNumber)
   let computerNumber = getComputerNumber(firstNumber,lastNumber)
-  if(userNumber==="error" || computerNumber==="error"){
+  if(userNumber=="error" || computerNumber=="error"){
     console.log("value is not correct or not between range")
   }
   console.log("user pick: "+userNumber)
@@ -25,9 +23,9 @@ if(checkEven(length)){
 
 function getComputerNumber(firstNumber,lastNumber){
   let computerNumber = Math.floor(Math.random()*10%2)
-  if(computerNumber===0){
+  if(computerNumber==0){
     return firstNumber
-  }else if(computerNumber===1){
+  }else if(computerNumber==1){
     return lastNumber
   }else{
     return "error"
@@ -36,25 +34,31 @@ function getComputerNumber(firstNumber,lastNumber){
 
 function getUserNumber(firstNumber,lastNumber){
   let userNumber = readline.question("User pick?")
-  if(userNumber===firstNumber || userNumber===lastNumber ){
-    return userNumber
-  }else{
+  console.log(userNumber,firstNumber,lastNumber)
+  if(userNumber==firstNumber){
+    return firstNumber
+  }
+  else if(userNumber==lastNumber){
+    return lastNumber
+  }
+  else{
     return "error"
   }
 }
 
 function getFirstNumber(pool){
+  console.log(pool[0])
   return pool[0]
 }
 
 function getLastNumber(pool){
-  let length=pool.length+1;
-  return pool[length];
+  console.log(pool)
+  return pool[pool.length-1];
 }
 
 
 function checkEven (number) {
-  return number%2===0?true:false;
+  return number%2==0?true:false;
 }
 
 function createArray(length){
@@ -66,17 +70,9 @@ let random;
   }
   return array
 }
-if(checkEven(length)){
-  console.log(createArray(length))
-  console.log("even")
-}else{
-  console.log("Number not even, insert again")
-}
-
-  
 
 function checkEven (number) {
-  return number%2===0?true:false
+  return number%2==0?true:false
 }
 
 function createArray(length){
@@ -86,6 +82,5 @@ let random;
     random = Math.floor((Math.random()*11)+10);
     pool[i] = random;
   }
-  console.log(pool)
   return pool
 }
