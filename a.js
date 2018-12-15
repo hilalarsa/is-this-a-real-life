@@ -2,23 +2,41 @@
 var readline = require('readline-sync');
 
 let length = readline.question("Enter number: ");
-
-if(checkEven(length)){
-  let pool=createArray(length);
-  console.log(pool);
-  let saveUserTotal,saveComputerTotal
-  let firstNumber = getFirstNumber(pool)
-  let lastNumber = getLastNumber(pool)
-  let userNumber = getUserNumber(firstNumber,lastNumber)
-  let computerNumber = getComputerNumber(firstNumber,lastNumber)
-  if(userNumber=="error" || computerNumber=="error"){
-    console.log("value is not correct or not between range")
-  }
-  console.log("user pick: "+userNumber)
-  console.log("AI pick: "+computerNumber)
-
+let pool = createArray(length);
+let totalUser=0
+let totalComputer = 0
+console.log(pool)
+for(let j=0;j<length/2;j++){
+  let result = battle(pool)
+  modifyPool(pool)
+  totalUser = totalUser+result.userNumber
+  console.log("Sum user:"+totalUser)
+  totalComputer = totalComputer+result.computerNumber
+  console.log("Sum AI:"+totalComputer)
+}
+if(totalUser==totalComputer){
+  console.log("Seri ciyeeee")
+}else if(totalUser>totalComputer){
+  console.log("Kamu menang coy, WUHUUU!!")
 }else{
-  console.log("Number not even, insert again")
+  console.log("AI telah menguasai dunia. LUL")
+}
+
+function battle(pool){
+  if(checkEven(length)){
+    let firstNumber = getFirstNumber(pool)
+    let lastNumber = getLastNumber(pool)
+    let userNumber = getUserNumber(firstNumber,lastNumber)
+    let computerNumber = getComputerNumber(firstNumber,lastNumber)
+    if(userNumber=="error" || computerNumber=="error"){
+      console.log("value is not correct or not between range")
+    }
+    console.log("user pick: "+userNumber)
+    console.log("AI pick: "+computerNumber)
+    return {userNumber, computerNumber}
+  }else{
+    console.log("Number not even, insert again")
+  }
 }
 
 function getComputerNumber(firstNumber,lastNumber){
@@ -32,9 +50,10 @@ function getComputerNumber(firstNumber,lastNumber){
   }
 }
 
+
 function getUserNumber(firstNumber,lastNumber){
   let userNumber = readline.question("User pick?")
-  console.log(userNumber,firstNumber,lastNumber)
+  // console.log(userNumber,firstNumber,lastNumber)
   if(userNumber==firstNumber){
     return firstNumber
   }
@@ -46,13 +65,18 @@ function getUserNumber(firstNumber,lastNumber){
   }
 }
 
+function modifyPool(pool){
+  pool.shift()
+  pool.pop()
+  console.log(pool)
+  return pool
+}
+
 function getFirstNumber(pool){
-  console.log(pool[0])
   return pool[0]
 }
 
 function getLastNumber(pool){
-  console.log(pool)
   return pool[pool.length-1];
 }
 
